@@ -1,4 +1,4 @@
-group = "com.sagrishin"
+group = "com.github.GrishinSergey"
 version = "1.0.0"
 
 buildscript {
