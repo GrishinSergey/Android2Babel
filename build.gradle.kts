@@ -49,10 +49,11 @@ tasks.test {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("jitpack") {
-            from(components["java"])
+gradlePlugin {
+    plugins {
+        register("Android2Babel") {
+            id = "$group.Android2Babel" // group = com.github.itsnotoger
+            implementationClass = "com.sagrishin.android2babel.plugins.BabelPlugin"
         }
     }
 }
