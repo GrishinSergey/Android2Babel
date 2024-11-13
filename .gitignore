@@ -1,0 +1,35 @@
+# Ignore IntelliJ IDEA specific files and folders
+/.idea/
+*.iws
+*.iml
+*.ipr
+
+# Ignore compiled class files
+*.class
+
+# Ignore build output directories
+/build/
+bin/
+out/
+
+# Ignore gradle daemon files
+/.gradle/
+
+# Ignore Maven Wrapper files (if not used)
+.mvn/
+
+# Ignore local configuration files
+local.properties
+.idea/workspace.xml
+.idea/libraries/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Kotlin specific files (if using Kotlin)
+*.kotlin_build_cache
+
+# Ignore user-specific files
+*.user
+*.userprefs

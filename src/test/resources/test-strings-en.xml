@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_comments_here_yet">No comments here yet…</string>
+
+    <plurals name="add_photo">
+        <item quantity="one">Add %1$d photo</item>
+        <item quantity="other">Add %1$d photos</item>
+    </plurals>
+
+    <plurals name="comments_count">
+        <item quantity="one"><a href="https://google.com/" target="_blank">%1$d comment</a></item>
+        <item quantity="other">%1$d comments</item>
+    </plurals>
+
+    <string-array name="months">
+        <item>January</item>
+        <item><b>February</b></item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string name="user_terms_link">https://www.zimaone.dk/user-terms-en/</string>
+    <string name="formatted_value"><p>Hello, <b>%1$s</b></p></string>
+    <string name="signup_policy_text">By <b>clicking</b> Continue %1$s accept the <a href="https://www.zimaone.dk/user-agreement-en/">User License</a> and the <a href="https://www.zimaone.dk/user-privacy-policy-en/">Privacy policy of personal information</a></string>
+
+    <string name="emergency_contacts_text">Emergency Contacts</string>
+    <string name="required_fields_cant_be_empty">Required fields can’t be empty</string>
+    <string name="pick_image_intent_chooser_title">Pick file from system</string>
+
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="phone_optional">Phone (optional)</string>
+    <string name="notes_optional">Notes (optional)</string>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="phone_optional">Телефон (опционально)</string>
+    <string name="notes_optional">Записи (опционально)</string>
+</resources>
