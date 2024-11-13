@@ -30,15 +30,15 @@ abstract class BabelPlugin : Plugin<Project> {
         }
     }
 
+}
 
-    abstract class Babel @Inject constructor(project: Project) {
-        private val objects: ObjectFactory = project.objects
 
-        val defaultLanguageName: Property<String> = objects.property(String::class.java)
-        val outputDirectory: RegularFileProperty = objects.fileProperty()
+abstract class Babel @Inject constructor(project: Project) {
+    private val objects: ObjectFactory = project.objects
 
-        operator fun component1(): String = defaultLanguageName.get()
-        operator fun component2(): File = outputDirectory.get().asFile
-    }
+    var defaultLanguageName: Property<String> = objects.property(String::class.java)
+    var outputDirectory: RegularFileProperty = objects.fileProperty()
 
+    operator fun component1(): String = defaultLanguageName.get()
+    operator fun component2(): File = outputDirectory.get().asFile
 }
