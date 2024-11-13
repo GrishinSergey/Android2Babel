@@ -58,10 +58,12 @@ gradlePlugin {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("jitpack") {
-            from(components["java"])
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("jitpack") {
+                from(components["java"])
+            }
         }
     }
 }
