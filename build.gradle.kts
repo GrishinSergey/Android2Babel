@@ -25,6 +25,7 @@ plugins {
     kotlin("jvm") version "1.6.0"
     java
     id("java-gradle-plugin")
+    id("maven-publish")
 }
 
 java {
@@ -45,5 +46,13 @@ tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("jitpack") {
+            from(components["java"])
+        }
     }
 }
