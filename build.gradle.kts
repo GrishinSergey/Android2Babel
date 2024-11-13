@@ -51,9 +51,17 @@ tasks.test {
 
 gradlePlugin {
     plugins {
-        register("Android2Babel") {
-            id = "$group.Android2Babel" // group = com.github.itsnotoger
+        create(project.name) {
+            id = "$group.${project.name}"
             implementationClass = "com.sagrishin.android2babel.plugins.BabelPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("jitpack") {
+            from(components["java"])
         }
     }
 }
