@@ -3,9 +3,14 @@ package com.sagrishin.android2babel.tasks
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.sagrishin.android2babel.models.TranslationRoot
-import com.sagrishin.android2babel.utils.*
+import com.sagrishin.android2babel.utils.AndroidTranslationsFormatterImpl
+import com.sagrishin.android2babel.utils.BabelParsingUseCase
+import com.sagrishin.android2babel.utils.TASKS_GROUP_NAME
+import com.sagrishin.android2babel.utils.takeProjectNameFrom
+import org.gradle.api.DefaultTask
 import org.gradle.api.Project
-import org.gradle.api.internal.ConventionTask
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -15,13 +20,13 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-open class ConvertBabelToAndroidTask : ConventionTask()  {
+abstract class ConvertBabelToAndroidTask : DefaultTask()  {
 
-    @Input
-    lateinit var defaultLanguageName: String
+    @get:Input
+    abstract val defaultLanguageName: Property<String>
 
-    @Input
-    lateinit var inputDirectory: File
+    @get:Input
+    abstract val inputDirectory: RegularFileProperty
 
     private val rootProject: Project
         get() = project.rootProject
@@ -37,7 +42,7 @@ open class ConvertBabelToAndroidTask : ConventionTask()  {
         val gson = Gson()
         val babelParsingUseCase = BabelParsingUseCase()
 
-        (inputDirectory.listFiles() ?: emptyArray()).map { file ->
+        (inputDirectory.get().asFile.listFiles() ?: emptyArray()).map { file ->
             /// Iterating per language
             val babelFormattedTranslations = gson.fromJson(file.reader(), JsonObject::class.java)
             val moduleNames = babelFormattedTranslations.keySet().map(::takeProjectNameFrom).distinct()
@@ -60,6 +65,7 @@ open class ConvertBabelToAndroidTask : ConventionTask()  {
     }
 
     private fun getAccordingValuesFolder(project: Project, translationsLanguage: String): File {
+        val defaultLanguageName = defaultLanguageName.get()
         val valuesFolder = when (translationsLanguage) {
             defaultLanguageName -> "values"
             else -> "values-$translationsLanguage"

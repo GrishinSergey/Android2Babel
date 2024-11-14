@@ -4,18 +4,20 @@ import com.google.gson.GsonBuilder
 import com.sagrishin.android2babel.models.TranslationRoot
 import com.sagrishin.android2babel.utils.*
 import org.gradle.api.Project
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.ConventionTask
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-open class ConvertAndroidToBabelTask : ConventionTask() {
+abstract class ConvertAndroidToBabelTask : ConventionTask() {
 
-    @Input
-    lateinit var defaultLanguageName: String
+    @get:Input
+    abstract val defaultLanguageName: Property<String>
 
-    @Input
-    lateinit var outputDirectory: File
+    @get:Input
+    abstract val outputDirectory: RegularFileProperty
 
     private val rootProject: Project
         get() = project.rootProject
@@ -27,13 +29,14 @@ open class ConvertAndroidToBabelTask : ConventionTask() {
     @TaskAction
     fun run() {
         val translationsUseCase = TranslationsRootUseCase()
-        val projectTranslationsUseCase = ProjectTranslationsUseCase(defaultLanguageName)
+        val projectTranslationsUseCase = ProjectTranslationsUseCase(defaultLanguageName.get())
         val gson = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create()
 
         val translationsPerSubproject = rootProject.subprojects.map(projectTranslationsUseCase::getStringsFilesOf)
         val projectLanguageNames = translationsPerSubproject.flatMap { it.translations.keys }.distinct()
 
         if (projectLanguageNames.isNotEmpty()) {
+            val outputDirectory = outputDirectory.get().asFile
             outputDirectory.mkdirs()
 
             projectLanguageNames.forEach { language ->
